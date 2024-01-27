@@ -16,7 +16,8 @@
 
  ## **Learning**
   1. Routing creation using react-router-dom.
-  2. How to add div in remaining screen if some div already occupied the screen,without overflow
+  2. How to add div in remaining screen if some div already occupied the screen,without overflow in ***Tailwind-CSS***
+     `flex flex-col` (parent div) -> div 1 -> `flex-1`(div2 for remaining space)
   3. Agora sdk how does it differ from webRTC although it works over the WebRTC.
 
 
