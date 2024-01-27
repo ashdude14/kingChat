@@ -10,9 +10,9 @@
 
 
 ## **To run this project locally**
- Step-1 Clone this repo in your local machine
- Step-2 run `npm install`
- step-3 run `npm run dev`
+  Step-1 Clone this repo in your local machine.
+  Step-2 run `npm install`.
+  Step-3 run `npm run dev`.
 
  ## **Learning**
   1. Routing creation using react-router-dom.
