@@ -3,7 +3,7 @@ import cam from "../assets/camera.svg";
 import exit from "../assets/app-name/exit.svg";
 import mic from "../assets/app-name/mic.svg";
 import ss from "../assets/app-name/sshare.svg";
-import ash from "../assets/app-name/ash.png";
+//import ash from "../assets/app-name/ash.png";
 
 const Room: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -31,7 +31,7 @@ const Room: React.FC = () => {
 
   return (
     <>
-      <div className="flex justify-between w-[100%]  flex-1 overflow-y-scroll  ">
+      <div className="flex justify-between w-[100%]  flex-1 overflow-hidden ">
         <div className="w-[15%] hidden md:flex flex-col border-r border-white">
           <div className="w-full h-full ">
             <p className="text-white text-md bg-slate-700   px-[10%] relative">
@@ -40,14 +40,43 @@ const Room: React.FC = () => {
             </p>
           </div>
         </div>
+
+
+
+
+
         <div className="sm:w-[70%] w-[100%] relative  ">
-          <button
+      
+          {/* Screen-share container */}
+
+
+          <div className={`bg-slate-900  w-full h-[60%] flex  ${sc ? 'block' : 'hidden'}`}>
+            {/* Screen Share Content here.... */}
+          </div>
+
+          {/* Profiles here on joining stream margin left margin bottom flex for profile */}
+          <div className="flex-1 w-full h-full justify-center items-center overflow-y-scroll mt-[2%] mb-[20%] flex-wrap">
+          {Array.from({ length: joiners }).map((_, index) => (
+              <div key={index} className="  bg-black/40 border  rounded-full border-[#845695] flex overflow-hidden justify-center  cursor-pointer  items-center w-[100px] h-[100px] sm:w-[200px] sm:h-[200px] flex-wrap"> 
+              </div>
+            ))}
+          </div>
+
+
+
+
+        </div>
+
+        <button
             className={`absolute bottom-0  mx-[40%] w-[20%] rounded-lg bg-[#845695] mb-[4%] text-sm sm:text-xl p-[0.5%]  ${show ? `hidden` : `block`}`}
             onClick={joinHandler}
           >
             Join Stream
           </button>
-          <div className={`flex absolute bottom-0  justify-center w-full gap-[1%] ${show ? 'block' : 'hidden'} mb-[4%]`}>
+
+
+
+        <div className={`flex absolute bottom-0  justify-center w-full gap-[1%] ${show ? 'block' : 'hidden'} mb-[4%]`}>
             <button className="bg-[#845695] rounded-lg w-[8%] pl-[2%]">
               <img src={cam} alt="Camera" className="w-[70%] h-[70%]" />
             </button>
@@ -62,25 +91,8 @@ const Room: React.FC = () => {
             </button>
           </div>
 
-          {/* Screen-share container */}
-          <div className={`bg-slate-900 flex w-full h-[60%] flex-1 absolute ${sc ? 'block' : 'hidden'}`}>
-            {/* Screen Share Content here.... */}
-          </div>
 
-          {/* Profiles here on joining stream */}
-          <div className="flex-2 bg-green-300 w-full h-full  overflow-y-auto ">
-          {Array.from({ length: joiners }).map((_, index) => (
-              <div key={index}>
-                <h1 className="text-xl text-black">img : {index}</h1>
-               <img src={ash}
-                alt="profile" 
-                className="rounded-full "
-               />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="w-[20%] h-full hidden sm:block bg-black/25 relative ">
+        <div className="w-[20%] h-full hidden sm:block bg-black/25 relative overflow-hidden ">
           <input
             className="absolute rounded-lg  bottom-0 m-[5%] w-[94%] h-[6%] p-[3%]  bg-slate-700"
             placeholder="Send a message"
