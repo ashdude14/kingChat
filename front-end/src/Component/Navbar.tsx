@@ -7,7 +7,7 @@ const Navbar = () => {
      navigat("/lobby")
   }
   return (
-    <div className="bg-black sm:h-[150px] h-[90px] w-full flex items-center justify-between sm:p-12 p-6 z-0">
+    <div className="bg-black sm:h-[150px] h-[90px] w-[100wh] flex items-center justify-between sm:p-12 p-6 z-0">
       <figure >
         <img  className="w-[90px] sm:w-[150px] cursor-pointer" src={logo} alt="logo" />
       </figure>
