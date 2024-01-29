@@ -41,28 +41,25 @@ const Room: React.FC = () => {
           </div>
         </div>
 
-
-
-
-
         <div className="sm:w-[70%] w-[100%] relative  ">
       
-          {/* Screen-share container */}
-
-
-          <div className={`bg-slate-900  w-full h-[60%] flex  ${sc ? 'block' : 'hidden'}`}>
+          
+           {/* Here is the two div want to modify */}
+           <div className="w-full h-full relative ">
+          <div className={`bg-slate-900  w-full   ${sc ? 'block  h-[60%]' : 'hidden overflow-y-auto'}`}>
             {/* Screen Share Content here.... */}
           </div>
 
           {/* Profiles here on joining stream margin left margin bottom flex for profile */}
-          <div className="flex-1 w-full h-full justify-center items-center overflow-y-scroll mt-[2%] mb-[20%] flex-wrap">
+          <div className={` w-full ${sc ? 'h-full' : ' h-[40%'  } justify-center items-center overflow-y-scroll scroll-smooth scrollbar-hide flex flex-wrap`}>
           {Array.from({ length: joiners }).map((_, index) => (
-              <div key={index} className="  bg-black/40 border  rounded-full border-[#845695] flex overflow-hidden justify-center  cursor-pointer  items-center w-[100px] h-[100px] sm:w-[200px] sm:h-[200px] flex-wrap"> 
+              <div key={index} className="  bg-black/40 border   rounded-full border-[#845695] flex overflow-hidden cursor-pointer  items-center w-[100px] h-[100px] sm:w-[200px] sm:h-[200px] flex-wrap"> 
+              
               </div>
             ))}
           </div>
 
-
+          </div>
 
 
         </div>
