@@ -10,7 +10,7 @@
 ## **Tools/Technology Used!**
 
 
-| Sl No. | Task                        | 
+| Sl No. | Tools/Library/Programming Language                        | 
 |--------|-----------------------------|
 |   1    | ReactJS|     
 |   2    | TypeScipt    |                       
