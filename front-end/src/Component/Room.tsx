@@ -21,7 +21,7 @@ const Room: React.FC = () => {
   const handleExit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShow(!show);
-    setSc(!sc);
+    setSc(false);
   };
 
   const screenhandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -31,7 +31,7 @@ const Room: React.FC = () => {
 
   return (
     <>
-      <div className="flex justify-between w-[100%]  flex-1 overflow-hidden ">
+      <div className="flex justify-between w-[100%]  flex-1 overflow-hidden  h-screen">
         <div className="w-[15%] hidden md:flex flex-col border-r border-white">
           <div className="w-full h-full ">
             <p className="text-white text-md bg-slate-700   px-[10%] relative">
@@ -41,25 +41,26 @@ const Room: React.FC = () => {
           </div>
         </div>
 
-        <div className="sm:w-[70%] w-[100%] relative  ">
+        <div className={`sm:w-[70%] w-[100%]  overflow-y-auto scroll-smooth scrollbar-hide ${(sc) ? '' : 'mt-[2%] mb-[5%]'}`}>
       
           
            {/* Here is the two div want to modify */}
-           <div className="w-full h-full relative ">
-          <div className={`bg-slate-900  w-full   ${sc ? 'block  h-[60%]' : 'hidden overflow-y-auto'}`}>
+           
+          <div className={`bg-slate-900   w-full h-[60%]  ${(sc) ? 'block' : 'hidden'}`}>
             {/* Screen Share Content here.... */}
           </div>
 
           {/* Profiles here on joining stream margin left margin bottom flex for profile */}
-          <div className={` w-full ${sc ? 'h-full' : ' h-[40%'  } justify-center items-center overflow-y-scroll scroll-smooth scrollbar-hide flex flex-wrap`}>
+          
+          <div className={` w-full mb-[10%] sm:mb-[13%]  ${(sc) ? 'h-[40%]' : ''} overflow-y-auto scroll-smooth scrollbar-hide justify-center items-center  flex flex-wrap`}>
           {Array.from({ length: joiners }).map((_, index) => (
-              <div key={index} className="  bg-black/40 border   rounded-full border-[#845695] flex overflow-hidden cursor-pointer  items-center w-[100px] h-[100px] sm:w-[200px] sm:h-[200px] flex-wrap"> 
+              <div key={index} className="  bg-black/40 border   rounded-full border-[#845695] flex overflow-hidden cursor-pointer  items-center w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] "> 
               
               </div>
             ))}
           </div>
-
-          </div>
+          
+    
 
 
         </div>
@@ -75,7 +76,7 @@ const Room: React.FC = () => {
 
         <div className={`flex absolute bottom-0  justify-center w-full gap-[1%] ${show ? 'block' : 'hidden'} mb-[4%]`}>
             <button className="bg-[#845695] rounded-lg w-[8%] pl-[2%]">
-              <img src={cam} alt="Camera" className="w-[70%] h-[70%]" />
+              <img src={cam} alt="Camera" className="w-[70%]  h-[70%]" />
             </button>
             <button className="bg-[#845695] rounded-lg w-[8%] pl-[2%]">
               <img src={mic} alt="Microphone" className="w-[70%] h-[70%]" />
