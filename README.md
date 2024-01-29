@@ -7,6 +7,14 @@
 |   2    | Establishment of Signal     |                         |
 |   3    | WebRTC setup                |                         |
 
+## **Tools/Technology Used!**
+
+
+| Sl No. | Task                        | 
+|--------|-----------------------------|
+|   1    | ReactJS|     
+|   2    | TypeScipt    |                       
+|   3    | Tailwind-CSS |               
 
 
 ## **To run this project locally**
