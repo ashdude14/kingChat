@@ -10,6 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "agora-extension-ai-denoiser": "^1.1.0",
+    "agora-extension-spatial-audio": "^1.0.0-beta1",
+    "agora-extension-virtual-background": "^1.2.0",
+    "agora-rtc-react": "^2.1.0",
+    "agora-rtc-sdk-ng": "^4.20.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.3",
