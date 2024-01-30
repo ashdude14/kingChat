@@ -4,6 +4,7 @@ import Navbar from './Component/Navbar';
 import { Routes,Route} from "react-router-dom"
 import Room from './Component/Room';
 import Lobby from './Component/Lobby';
+
 function App() {
   return (
     <div className='flex flex-col h-screen'>

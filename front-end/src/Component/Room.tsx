@@ -3,13 +3,33 @@ import cam from "../assets/camera.svg";
 import exit from "../assets/app-name/exit.svg";
 import mic from "../assets/app-name/mic.svg";
 import ss from "../assets/app-name/sshare.svg";
-//import ash from "../assets/app-name/ash.png";
+import { useRoomContext } from "./Context/RoomContext";
+import { AgoraRTCProvider, useJoin, useLocalCameraTrack, useLocalMicrophoneTrack, usePublish, useRTCClient, useRemoteAudioTracks, useRemoteUsers, RemoteUser, LocalVideoTrack } from "agora-rtc-react";
+import AgoraRTC from "agora-rtc-sdk-ng";
+
+
+const appid="a566d38fde2942ce9459fc76e1349eac";
+const token  = null;
+
+// to be stotred in .env 
+
+const rtcUid =  Math.floor(Math.random() * 2032)
+
+
+// Configure an Agora Engine instance and set up an event handler
+
+// 
 
 const Room: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
   const [sc, setSc] = useState<boolean>(false);
+  const {room}  = useRoomContext() //
+  const roomId=room; 
+  console.log("roomid is room "+roomId);
+  // agora code for react 
+  const client = useRTCClient(AgoraRTC.createClient({ codec: "vp8", mode: "rtc" }));
 
-  // For storing joining
+  // For storing joining (front-end) 
   const [joiners, setJoiners] = useState<number>(0);
 
   const joinHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,7 +75,7 @@ const Room: React.FC = () => {
           <div className={` w-full mb-[10%] sm:mb-[13%]  ${(sc) ? 'h-[40%]' : ''} overflow-y-auto scroll-smooth scrollbar-hide justify-center items-center  flex flex-wrap`}>
           {Array.from({ length: joiners }).map((_, index) => (
               <div key={index} className="  bg-black/40 border   rounded-full border-[#845695] flex overflow-hidden cursor-pointer  items-center w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] "> 
-              
+            
               </div>
             ))}
           </div>
