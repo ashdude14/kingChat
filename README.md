@@ -7,6 +7,12 @@
 |   2    | Agora SetUp    |                         |
 |   3    | Color on voice                |                         |
 
+
+## **getting familiar with Agora-SDK**
+
+Go through the readme file provided by documentation 
+[see this->](https://github.com/AgoraIO/video-sdk-samples-reactjs)
+
 ## **Tools/Technology Used!**
 
 
