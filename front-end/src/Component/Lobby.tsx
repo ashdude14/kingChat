@@ -17,7 +17,7 @@ const Lobby: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <form className="bg-black/15 sm:h-[65%] h-[60%] w-[50%]">
+      <form className="bg-black/15 sm:h-[65%] h-[60%] w-[50%] relative">
         <p className="flex items-center justify-center h-[15%] bg-black/20 text-sm sm:text-2xl text-center mb-4">
           👋 Create or Join Room
         </p>
@@ -27,7 +27,7 @@ const Lobby: React.FC = () => {
         <input
           type="text"
           name="name"
-          className="h-[10%] w-[80%] bg-black/25 px-[5%] mx-[10%] mb-[5%] mt-[5%] cursor-pointer"
+          className="h-[10%] w-[80%] bg-black/25 px-[5%] mx-[10%] mb-[2%] mt-[2%] cursor-pointer"
           placeholder="Enter your name..."
         />
         <label htmlFor="room" className="h-[15%] text-lg sm:text-xl px-[10%] ">
@@ -38,11 +38,11 @@ const Lobby: React.FC = () => {
           name="room"
           value={room}
           onChange={handleChange}
-          className="h-[10%] w-[80%] bg-black/25 px-[5%] mx-[10%] mb-[10%] mt-[5%] cursor-pointer"
+          className="h-[10%] w-[80%] bg-black/25 px-[5%] mx-[10%] mb-[2%] mt-[2%] cursor-pointer"
           placeholder="Enter room name..."
         />
         <button
-          className="mx-[10%] w-[80%] h-[10%] bg-[#845695] text-lg sm:text-xl"
+          className="mx-[10%] w-[80%] h-[10%] bg-[#845695] text-lg sm:text-xl absolute bottom-0 right-0  mt-[5%] mb-[4%]"
           onClick={handleClick}
         >
           Go to room!

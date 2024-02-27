@@ -4,19 +4,9 @@ import exit from "../assets/app-name/exit.svg";
 import mic from "../assets/app-name/mic.svg";
 import ss from "../assets/app-name/sshare.svg";
 import { useRoomContext } from "./Context/RoomContext";
-//import { AgoraRTCProvider, useJoin, useLocalCameraTrack, useLocalMicrophoneTrack, usePublish, useRTCClient, useRemoteAudioTracks, useRemoteUsers, RemoteUser, LocalVideoTrack,  } from "agora-rtc-react";
-import AgoraRTC from "agora-rtc-sdk-ng";
 
 
-const appid="a566d38fde2942ce9459fc76e1349eac";
-const token  = null;
-const channel= " main";
 // to be stotred in .env 
-
-
-
-const client=AgoraRTC.createClient({mode : "rtc",codec: "vp8"})
-
 
 
 const Room: React.FC = () => {
@@ -28,16 +18,6 @@ const Room: React.FC = () => {
   console.log("roomid is room "+roomId);
   // agora code for react 
  
-let localTrack=[];
-//let remoteUsers={};
-
-let joinAndDisplayLocalStream= async()=>{
-  const UID= await client.join(appid,channel,token,null)
-  localTrack = await AgoraRTC.createMicrophoneAndCameraTracks()
-  localTrack[1].play(`user-${UID}`);
-  await client.publish(localTrack)
-
-}
   // For storing joining (front-end) 
   const [joiners, setJoiners] = useState<number>(0);
 
@@ -45,7 +25,7 @@ let joinAndDisplayLocalStream= async()=>{
     e.preventDefault();
     setShow(!show);
     setJoiners((prevJoiners) => prevJoiners + 1);
-    await joinAndDisplayLocalStream();
+  
   };
   //console.log(joiners)
   const handleExit = (e: React.MouseEvent<HTMLButtonElement>) => {

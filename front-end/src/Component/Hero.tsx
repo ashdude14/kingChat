@@ -6,7 +6,7 @@ const Hero = () => {
     <>   
    <div className="w-full h-[500px] bg-black/10 sm:flex sm:justify-between items-center">
      <div className="w-[100%] sm:text-7xl text-3xl font-bold items-center  p-8 ">
-      <h2 className="text-center ">Interactive Chat & Streaming</h2>
+      <h2 className="text-center ">Let's chat & Stream!</h2>
      </div>
      <div className="w-[100%]">
      <img src={hero} alt="" />
