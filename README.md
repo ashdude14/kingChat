@@ -4,6 +4,29 @@
 
 [Analysis of zoom with diagram](https://app.eraser.io/workspace/1VAt6dq08nA83vf4VOpa?origin=share)
 
+## Features of kingChat
+<h2> User Interface </h2>
+The following includes some popular UI features present in kingChat:
+
+1. User Management: This allows users to display general information such as a phone number and picture on their personal profiles. More complex user profiles may contain in-app purchase tools and payment integrations.
+
+
+2. Contacts Management: All modern video calling apps have a contacts management feature that allows users to add, search and delete contacts.
+
+
+3. Status: The status feature notifies users about the online status of other users. This can prevent users from wasting time calling people that are not currently online. From a simple online/offline status to WhatsApp’s last seen feature, status functionalities are a must-have in most cases.
+
+
+4. Text Chat: Users can save time by texting instead of calling for simple questions or status updates. Furthermore, apps that combine both video and text are usually more successful.
+
+
+4. Group Calls: Most office meetings have transformed into virtual meetings using the group conferencing feature. Therefore, implementing group calls is a great way to attract businesses that are focusing on maintaining operations through remote work.
+
+
+5. Screen Sharing: To build upon virtual meetings, a screen sharing feature allows users to share their work during a call. Furthermore, screen sharing can increase the effectiveness of communication, especially for remote workers.
+
+
+6. Push Notifications: With these, users can check for new messages or missed calls by simply sliding the notification bar on a locked screen.
 ## **Task Break-up!**
 
 | Sl No. | Task                        | Status                  |
