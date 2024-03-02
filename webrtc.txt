@@ -1,0 +1,28 @@
+Get to know the necessary WebRTC APIs
+1.) getUserMedia API
+2.) RTCPeerConnection API
+This API is the heart of WebRTC and is responsible for establishing and managing peer-to-peer connections between browsers.
+3.) RTCDataChannel API
+This API provides peer-to-peer data communication capabilities without the need for a server. It is useful for sending arbitrary data between peers.
+4.) Signaling
+WebRTC requires signaling to exchange connection details between peers before establishing a direct connection. 
+This process is not defined by the WebRTC standard and requires a separate signaling mechanism, such as WebSocket or a server-side application.
+5.) MediaStream: Allows access to audio and video streams from user media devices like cameras and microphones.
+6.) RTCIceCandidate: Represents an ICE candidate, used during peer-to-peer connection establishment.
+7.) RTCSessionDescription: Represents the session description that sets up the connection.
+
+What are STUN, TURN, and ICE?
+ICE (Interactive Connectivity Establishment), STUN (Session Traversal Utilities for NAT), and TURN (Traversal Using Relays around NAT)
+are important components of the WebRTC framework that enable real-time communication over the internet.
+They are used to establish peer-to-peer connections between clients,
+even when they are located behind firewalls or Network Address Translation (NAT) devices.
+
+ICE (Interactive Connectivity Establishment) ICE is a technique that combines STUN and TURN servers  to discover and establish the best connection path between WebRTC clients,
+enabling real-time communication even in challenging network environments.
+
+STUN (Session Traversal Utilities for NAT) STUN is a protocol used to discover the public IP address and port of a 
+client that is located ICE is a technique that combines STUN and TURN servers to discover and establish the best connection path between WebRTC clients,
+enabling real-time communication even in challenging network environments.
+
+TURN (Traversal Using Relays around NAT) TURN servers act as intermediaries when direct peer-to-peer connections are not possible
+ due to restrictive network configurations. They relay media streams between clients, ensuring reliable communication.
