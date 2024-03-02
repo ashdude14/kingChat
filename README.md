@@ -37,7 +37,7 @@
 ## **Challenges**
 
    1. Screen share when not popped-up user profile div content should scroll.
-   2. `peer-to-peer` connections for small group to share data in `WebRTC`
+   2. `peer-to-peer` connections for small group to share data in `WebRTC` eg- a)P2P b) Mesh Network  c) SFU . 
 
 ## **Working Strategy**
    
