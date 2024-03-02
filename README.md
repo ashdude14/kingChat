@@ -72,7 +72,7 @@ The following includes some popular UI features present in kingChat:
   
  ## **Refrences** 
  
-## **Getting familiar with WEbRTC**
+## **Getting familiar with WebRTC**
 
 Go through the readme file provided by documentation 
 [see this->]().
