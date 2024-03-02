@@ -1,5 +1,8 @@
 ## kingChat- a realtime video & chat streaming plateform
 
+## System Design & Analysis of Zoom
+
+[Analysis of zoom with diagram](https://app.eraser.io/workspace/1VAt6dq08nA83vf4VOpa?origin=share)
 
 ## **Task Break-up!**
 
