@@ -1,4 +1,4 @@
-## kingChat- a realtime video & chat streaming plateform
+## kingChat- a realtime video & chat streaming plateform!
 
 ## System Design & Analysis of Zoom
 
