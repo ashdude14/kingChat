@@ -83,3 +83,7 @@ Go through the readme file provided by documentation
 
 What are STUN, TURN, and ICE?
 ![ICE-STUN-TURN](webrtc1.webp)
+
+Local Media Stream is being sent to Remote Media Stream and the Remote Media Stream that are coming is being consumed(played).
+
+![Local-remote](LocalVideo-RemoteVideo.png)
