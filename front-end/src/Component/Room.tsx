@@ -14,6 +14,7 @@ const Room: React.FC = () => {
   const { room } = useRoomContext(); //
   const { participants, setParticipants } = useRoomContext();
   const socket = useSocket();
+  const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
   // const roomId=room;
   console.log("I am from room.tsx roomid ,socket  ", room, socket?.id);
   // agora code for react
@@ -48,6 +49,29 @@ const Room: React.FC = () => {
     },
     [setParticipants]
   );
+
+  useEffect(() => {
+    const getMediaStream = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
+        setMediaStream(stream);
+      } catch (error) {
+        console.error("Error accessing media devices: ", error);
+      }
+    };
+
+    getMediaStream();
+
+    return () => {
+      if (mediaStream) {
+        mediaStream
+          .getTracks()
+          .forEach((track: { stop: () => unknown }) => track.stop());
+      }
+    };
+  }, []);
 
   useEffect(() => {
     socket?.on("user:joined", handleUserJoined);
@@ -95,9 +119,23 @@ const Room: React.FC = () => {
             {Array.from({ length: joiners }).map((_, index) => (
               <div
                 key={index}
-                className="  bg-black/40 border   rounded-full border-[#845695] flex overflow-hidden cursor-pointer  items-center w-[80px] h-[80px] md:w-[200px] md:h-[200px] sm:w-[150px] sm:h-[150px] "
+                className="  bg-black/40 border  relative rounded-full border-[#845695] flex overflow-hidden cursor-pointer  items-center w-[80px] h-[80px] md:w-[200px] md:h-[200px] sm:w-[150px] sm:h-[150px] "
               >
-                <div className="w-full h-full setVideo"></div>
+                <div className="w-full h-full absolute mb-[20%]">
+                  {mediaStream && (
+                    <video
+                      ref={(videoRef) => {
+                        if (videoRef) {
+                          videoRef.srcObject = mediaStream;
+                          videoRef.play();
+                        }
+                      }}
+                      autoPlay
+                      playsInline
+                      className="h-[110%] w-[100%] scale-150 "
+                    />
+                  )}
+                </div>
               </div>
             ))}
           </div>
