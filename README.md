@@ -42,7 +42,7 @@ The following includes some popular UI features present in kingChat:
 | Sl No. | Tools/Library                    | 
 |--------|-----------------------------|
 |   1    | ReactJS |     
-|   2    | JavaScript    |                       
+|   2    | TypeScript    |                       
 |   3    | Tailwind-CSS |               
 |4| WebRTC |
 
