@@ -1,0 +1,1 @@
+-> "dev" : "nodemon index" & "dev " :"nodemon index", there is only difference of a space, but will throw error for this. [10 min. wasted ] 
