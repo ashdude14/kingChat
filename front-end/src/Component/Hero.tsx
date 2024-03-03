@@ -1,7 +1,10 @@
 import hero from "../assets/app-name/zoom-clone-hero.png"
+import { useRoomContext } from "./Context/RoomContext";
 
 
 const Hero = () => {
+  const {participants}=useRoomContext();
+  console.log("live",participants)
   return (
     <>   
    <div className="w-full h-[500px] bg-black/10 sm:flex sm:justify-between items-center">
@@ -13,7 +16,8 @@ const Hero = () => {
      </div>
    </div>
    <section >
-    <h3 className="text-white text-3xl sm:text-4xl font-bold p-8 sm:pl-[50px]">{`Live Now : 0`}</h3>
+    <h3 className="text-white text-3xl sm:text-4xl font-bold p-8 sm:pl-[50px]">{`Live Now : ${participants}`}</h3>
+  
    </section>
     </>
   );

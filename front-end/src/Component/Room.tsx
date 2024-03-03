@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import cam from "../assets/camera.svg";
 import exit from "../assets/app-name/exit.svg";
 import mic from "../assets/app-name/mic.svg";
@@ -12,9 +12,10 @@ const Room: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
   const [sc, setSc] = useState<boolean>(false);
   const { room } = useRoomContext(); //
-  const socket=useSocket();
+  const { participants, setParticipants } = useRoomContext();
+  const socket = useSocket();
   // const roomId=room;
-  console.log("I am from room.tsx roomid ,socket  " ,room,socket?.id);
+  console.log("I am from room.tsx roomid ,socket  ", room, socket?.id);
   // agora code for react
 
   // For storing joining (front-end)
@@ -37,6 +38,24 @@ const Room: React.FC = () => {
     setSc(!sc);
   };
 
+  const handleUserJoined = useCallback(
+    (data: { email: string; id: string | number }) => {
+      const { email, id } = data;
+      console.log(`user : ${email} joined room with socketid: ${id}`);
+      setParticipants((data) => {
+        return data + 1;
+      });
+    },
+    [setParticipants]
+  );
+
+  useEffect(() => {
+    socket?.on("user:joined", handleUserJoined);
+    return () => {
+      socket?.off("user:joined", handleUserJoined);
+    };
+  }, [socket, handleUserJoined]);
+
   return (
     <>
       <div className="flex justify-between w-[100%]  flex-1 overflow-hidden  h-screen">
@@ -45,7 +64,7 @@ const Room: React.FC = () => {
             <p className="text-white text-md bg-slate-700   px-[10%] relative">
               Participants
               <strong className="bg-black absolute top-1/2 transform -translate-y-1/2 right-[10%]">
-                14
+                {participants}
               </strong>
             </p>
           </div>
@@ -76,7 +95,7 @@ const Room: React.FC = () => {
             {Array.from({ length: joiners }).map((_, index) => (
               <div
                 key={index}
-                className="  bg-black/40 border   rounded-full border-[#845695] flex overflow-hidden cursor-pointer  items-center w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] "
+                className="  bg-black/40 border   rounded-full border-[#845695] flex overflow-hidden cursor-pointer  items-center w-[80px] h-[80px] md:w-[200px] md:h-[200px] sm:w-[150px] sm:h-[150px] "
               >
                 <div className="w-full h-full setVideo"></div>
               </div>
@@ -94,24 +113,24 @@ const Room: React.FC = () => {
         </button>
 
         <div
-          className={`flex absolute bottom-0  justify-center w-full gap-[1%] ${
+          className={`flex absolute bottom-0 sm:h-[5%] justify-center w-[100%] gap-[1%] ${
             show ? "block" : "hidden"
           } mb-[4%]`}
         >
-          <button className="bg-[#845695] rounded-lg w-[8%] pl-[2%]">
-            <img src={cam} alt="Camera" className="w-[70%]  h-[70%]" />
+          <button className="bg-[#845695] rounded-lg sm:w-[4%] sm:pl-[1%] w-[8%] pl-[2%]">
+            <img src={cam} alt="Camera" className=" w-[70%]  h-[70%]" />
           </button>
-          <button className="bg-[#845695] rounded-lg w-[8%] pl-[2%]">
+          <button className="bg-[#845695] rounded-lg w-[8%] pl-[2%] sm:w-[4%] sm:pl-[1%] ">
             <img src={mic} alt="Microphone" className="w-[70%] h-[70%]" />
           </button>
           <button
-            className="bg-[#845695] rounded-lg w-[8%] pl-[2%] "
+            className="bg-[#845695] rounded-lg w-[8%] pl-[2%] sm:w-[4%] sm:pl-[1%] "
             onClick={screenhandler}
           >
             <img src={ss} alt="Screenshot" className="w-[70%] h-[70%]" />
           </button>
           <button
-            className="bg-red-400 rounded-lg w-[8%] pl-[2%]"
+            className="bg-red-400 rounded-lg w-[8%] pl-[2%] sm:w-[4%] sm:pl-[1%]"
             onClick={handleExit}
           >
             <img src={exit} alt="Exit" className="w-[70%] h-[70%]" />

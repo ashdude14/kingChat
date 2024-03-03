@@ -5,7 +5,7 @@ import { useRoomContext } from "./Context/RoomContext";
 
 const Lobby: React.FC = () => {
   const navigate = useNavigate();
-  const { room, setRoom, email, setEmail } = useRoomContext();
+  const { room, setRoom, email, setEmail, } = useRoomContext();
   const socket = useSocket();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -22,6 +22,7 @@ const Lobby: React.FC = () => {
       email,
       room,
     });
+   
   };
 
   const handleJoinRoom = useCallback(
@@ -90,3 +91,4 @@ const Lobby: React.FC = () => {
 };
 
 export default Lobby;
+

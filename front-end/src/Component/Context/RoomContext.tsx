@@ -6,6 +6,8 @@ interface RoomContextProps {
   setRoom: Dispatch<SetStateAction<string>>;
   email: string;
   setEmail: Dispatch<SetStateAction<string>>;
+  participants:number;
+  setParticipants:Dispatch<SetStateAction<number>>;
 }
 
 const RoomContext = createContext<RoomContextProps | undefined>(undefined);
@@ -13,9 +15,10 @@ const RoomContext = createContext<RoomContextProps | undefined>(undefined);
 export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [room, setRoom] = useState<string>('');
   const[email,setEmail]= useState<string>('');
+  const[participants,setParticipants]=useState<number>(1);
 
   return (
-    <RoomContext.Provider value={{ room, setRoom ,email,setEmail}}>
+    <RoomContext.Provider value={{ room, setRoom ,email,setEmail,participants,setParticipants}}>
       {children}
     </RoomContext.Provider>
   );
