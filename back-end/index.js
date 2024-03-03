@@ -12,6 +12,7 @@ io.on("connection", (socket) => {
         const {email,room} = args;
         EtoS.set(email,socket.id);
         StoE.set(socket.id,email)
+        io.to(socket.id).emit("room:join",args)
     })
 })
 

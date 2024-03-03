@@ -1,12 +1,12 @@
-import React, { ChangeEvent, FormEvent, useEffect } from "react";
+import React, { ChangeEvent, FormEvent, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRoomContext } from "./Context/RoomContext";
 import { useSocket } from "./Context/SocketProvider";
+import { useRoomContext } from "./Context/RoomContext";
 
 const Lobby: React.FC = () => {
   const navigate = useNavigate();
   const { room, setRoom, email, setEmail } = useRoomContext();
-  const socket=useSocket()
+  const socket = useSocket();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setRoom(event.target.value);
@@ -18,17 +18,30 @@ const Lobby: React.FC = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-     socket?.emit("room:join",{
+    socket?.emit("room:join", {
       email,
-      room
-     })
-    navigate("/room");
+      room,
+    });
   };
-   useEffect(()=>{
-    socket?.emit("room:join1",(data: unknown) =>{
-      console.log(`data coming from Back-end ${data}`)
-    })
-   },[socket])
+
+  const handleJoinRoom = useCallback(
+    (data: { email: string; room: string | number }) => {
+      const { email, room } = data;
+      console.log(
+        "I am from Lobby.tsx email,room,socketId : ",
+        email,
+        room,
+        socket?.id
+      );
+      navigate("/room");
+    },
+    [navigate, socket?.id]
+  );
+
+  useEffect(() => {
+    socket?.on("room:join", handleJoinRoom);
+  }, [socket, handleJoinRoom]);
+
   return (
     <div className="flex items-center justify-center h-screen">
       <form

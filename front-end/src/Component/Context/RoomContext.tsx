@@ -1,4 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
+
 import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
 
 interface RoomContextProps {
@@ -21,6 +21,7 @@ export const RoomProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useRoomContext = (): RoomContextProps => {
   const context = useContext(RoomContext);
   if (!context) {
