@@ -33,13 +33,16 @@ const Lobby: React.FC = () => {
         room,
         socket?.id
       );
-      navigate("/room");
+      navigate(`/room/${room}`);   // dynamic route set in for /room/:r-id
     },
     [navigate, socket?.id]
   );
 
   useEffect(() => {
     socket?.on("room:join", handleJoinRoom);
+    return () =>{
+      socket?.off("room:join",handleJoinRoom)
+    }
   }, [socket, handleJoinRoom]);
 
   return (
