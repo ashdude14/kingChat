@@ -45,6 +45,7 @@ The following includes some popular UI features present in kingChat:
 |   2    | TypeScript    |                       
 |   3    | Tailwind-CSS |               
 |4| WebRTC |
+|5| SocketIO |
 
 ## **To run this project locally**
 
