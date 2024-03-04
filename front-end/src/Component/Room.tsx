@@ -53,6 +53,7 @@ const Room: React.FC = () => {
   useEffect(() => {
     const getMediaStream = async () => {
       try {
+        
         const stream = await navigator.mediaDevices.getUserMedia({
           video: true,
         });

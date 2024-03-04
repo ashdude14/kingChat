@@ -87,3 +87,59 @@ What are STUN, TURN, and ICE?
 Local Media Stream is being sent to Remote Media Stream and the Remote Media Stream that are coming is being consumed(played).
 
 ![Local-remote](LocalVideo-RemoteVideo.png)
+
+## WebRTC Media Streaming Concept
+At the top level, WebRTC media streaming occurs in four phases:
+
+1. Offer.
+2. Signaling.
+3. Answer.
+4. Data exchange between two browsers. </br>
+
+WebRTC uses Session Description Protocol(SDP) to create an offer and answer mechanism. SDP provides a profile of your device to other users trying to connect to you. SDP is a text-based protocol, that contains information about the type of media stream, codec, transport layer, and other information.
+
+To make an offer, a WebRTC peer connection object is created and takes an optional parameter. The optional parameter contains the configuration for the Interactive Connectivity Establishment Protocol(ICE) servers. ICE finds the shortest path for media to travel between two peers. ICE helps devices connect across the internet, and overcome NAT(Network Address Translator), firewalls, and anything that can hinder peer-to-peer communication.
+
+For devices to communicate over the internet, they utilize IP addresses and port numbers. However, most devices operate behind a firewall or NAT that hides their IP addresses, thus preventing peer-to-peer communication. During ICE gatherings, ICE allows devices to exchange potential network addresses called ICE candidates. The candidates contain IP addresses, port numbers, and transport protocols. A computer device can have multiple ICE candidates. ICE protocol then decides the best network path for a session using the information provided by ICE candidates. Devices exchange ICE candidates using the ICE servers. There are two types of ICE servers
+
+1. Session Traversal Utilities for NATS(STUN)
+2. Traversal Using Relay around NATS(TURN)
+
+Turn servers are used in a more restrictive network when both peers are behind a firewall, NAT, or symmetric NAT that prevents direct communication between devices.
+
+## Advantages of WebRTC
+
+High communication quality
+Automatically adjusts to any type of connection.
+Automatic microphone sensitivity (AGC) control for all connections.
+All connections are protected (HTTPS) and encrypted (SRTP).
+WebRTC application works on desktop or mobile operating systems provided it has browser support.
+
+## Drawbacks of WebRTC
+
+Audio and video mixing to run group audio or video conferences.
+WebRTC solutions are incompatible with each other.
+
+Vendors decide on signaling, messaging, file transfer, conference scheduling, etc. No uniformity in signaling or messaging.
+
+## WebRTC Setup
+
+We mentioned earlier that peer-to-peer connections in WebRTC occur through an offer-and-answer mechanism. A peer(caller) creates an instance of the RTCPeerConnection object and passes it an optional configuration object that contains the iceServers. The RTCPeerConnection creates an offer and sets the offer as its local session description, emits the offer to the remote peer through the signaling server. The caller uses the browser API getUserMedia to access the device media. Then attaches the media stream and ice candidates to the RTCPeerConnection.
+
+The remote peer(callee) will also create an instance of the RTC peer connection. when the callee receives an offer, it will set its remote session description to the offer, create an answer, set the answer as its local session description. The callee will send the answer to the caller through the signaling server. The callee would also attach its media stream and ice candidate to the peer connection.
+
+The connection between the caller and callee can only take place after they have both exchanged ice candidates. We mentioned before that ice candidates are potential network addresses that peers can use to communicate with one another. The caller would send its ice candidate to the callee through the signaling server and listen for the ice candidate of the callee, when the caller receives the ice candidate of the callee, it will add it to the RTCPeerConnection. The callee would also repeat this process.
+
+## Socket.IO concepts
+
+Socket.IO is a library that facilitates bi-directional low-latency communication between the client and the server. The communication between the client and server is events-based. The client and the server emit and listen to events. To use Socket.IO, the client and the server library must be installed on the client and server. Socket.IO is used for applications that depend on real-time data like the stock market, weather, and chat applications. Socket.IO is implemented in most major languages, Python, Java, and C++. In this article, we used JavaScript implementation for both the client and server side.
+
+## Advantages of Socket.IO
+
+Multiple namespaced streams down a single engine.io session. Encoding of messages as named JSON and binary events.
+Acknowledgment callbacks per event
+
+## Drawbacks of Socket.IO
+
+Socket.IO doesn't provide end-to-end encryption.
+Socket.IO does not guarantee exact-once messaging semantics. By default, an at-most-once guarantee is provided.
