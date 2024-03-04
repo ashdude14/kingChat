@@ -145,4 +145,8 @@ Acknowledgment callbacks per event
 Socket.IO doesn't provide end-to-end encryption.
 Socket.IO does not guarantee exact-once messaging semantics. By default, an at-most-once guarantee is provided.
 
+## [See below documentations for better understanding]
+
+[mdn-refrence-webRTC](https://developer.mozilla.org/en-US/docs/Glossary/WebRTC)
+
 [more details for p2p connection!](https://www.w3.org/TR/webrtc/#dom-rtcconfiguration-icecandidatepoolsize)
