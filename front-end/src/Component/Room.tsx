@@ -12,7 +12,7 @@ const Room: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
   const [sc, setSc] = useState<boolean>(false);
   const [remoteSocketId, setRemoteSocketId] = useState<string | number>("");
-
+  const [chkrem, setChkrem] = useState<boolean>(false);
   // const { room } = useRoomContext(); //
   const { participants, setParticipants } = useRoomContext();
   const socket = useSocket();
@@ -40,10 +40,11 @@ const Room: React.FC = () => {
     setJoiners((prevJoiners) => prevJoiners + 1);
     getMediaStream();
     const offer = await peer.getOffer(); // Await here
+    // setChkrem(true);
     socket?.emit("user:offer", { to: remoteSocketId, offer });
   };
 
-  //console.log(joiners)
+  //console.log("im chrm", chkrem);
   const handleExit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShow(!show);
@@ -71,6 +72,8 @@ const Room: React.FC = () => {
   const handleAcceptOffer = useCallback(
     (data: { from: string | number; offer: string }) => {
       const { from, offer } = data;
+      setChkrem(true);
+      // setShow(!show)
       console.log("accept offer", from, offer);
     },
     []
@@ -172,9 +175,9 @@ const Room: React.FC = () => {
         </div>
 
         <button
-          className={`absolute bottom-0  mx-[40%] w-[20%] rounded-lg bg-[#845695] mb-[4%] text-sm sm:text-xl p-[0.5%]  ${
-            show ? `hidden` : `block`
-          }`}
+          className={`absolute bottom-0 mx-[40%] w-[20%] rounded-lg bg-[#845695] mb-[4%] text-sm sm:text-xl p-[0.5%] ${
+            (!show && remoteSocketId) || chkrem ? "block" : "hidden"
+          } `}
           onClick={joinHandler}
         >
           Join Stream
