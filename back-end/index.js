@@ -16,7 +16,10 @@ io.on("connection", (socket) => {
         socket.join(room)
         io.to(socket.id).emit("room:join",args)
      
-
+        socket.on("user:offer",({to,offer})=>{
+            console.log("offer",offer,to)
+        io.to(to).emit("user:accept",{from:socket.id,offer})
+      })
     })
 })
 

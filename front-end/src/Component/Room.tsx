@@ -5,20 +5,31 @@ import mic from "../assets/app-name/mic.svg";
 import ss from "../assets/app-name/sshare.svg";
 import { useRoomContext } from "./Context/RoomContext";
 import { useSocket } from "./Context/SocketProvider";
-
+import peer from "./Services/peer.ts";
 // to be stotred in .env
 
 const Room: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
   const [sc, setSc] = useState<boolean>(false);
-  const { room } = useRoomContext(); //
+  const [remoteSocketId, setRemoteSocketId] = useState<string | number>("");
+
+  // const { room } = useRoomContext(); //
   const { participants, setParticipants } = useRoomContext();
   const socket = useSocket();
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
   // const roomId=room;
-  console.log("I am from room.tsx roomid ,socket  ", room, socket?.id);
-  // agora code for react
+  // console.log("I am from room.tsx roomid ,socket  ", room, socket?.id);
 
+  const getMediaStream = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+      });
+      setMediaStream(stream);
+    } catch (error) {
+      console.error("Error accessing media devices: ", error);
+    }
+  };
   // For storing joining (front-end)
   const [joiners, setJoiners] = useState<number>(0);
 
@@ -26,7 +37,11 @@ const Room: React.FC = () => {
     e.preventDefault();
     setShow(!show);
     setJoiners((prevJoiners) => prevJoiners + 1);
+    getMediaStream();
+    const offer = await peer.getOffer(); // Await here
+    socket?.emit("user:offer", { to: remoteSocketId, offer });
   };
+
   //console.log(joiners)
   const handleExit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -43,43 +58,56 @@ const Room: React.FC = () => {
     (data: { email: string; id: string | number }) => {
       const { email, id } = data;
       console.log(`user : ${email} joined room with socketid: ${id}`);
+      setRemoteSocketId(id);
+      console.log("remoteSocketId", remoteSocketId);
       setParticipants((data) => {
         return data + 1;
       });
     },
-    [setParticipants]
+    [remoteSocketId, setRemoteSocketId, setParticipants]
   );
 
-  useEffect(() => {
-    const getMediaStream = async () => {
-      try {
-        
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-        });
-        setMediaStream(stream);
-      } catch (error) {
-        console.error("Error accessing media devices: ", error);
-      }
-    };
+  const handleAcceptOffer = useCallback(
+    (data: { from: string | number; offer: string }) => {
+      const { from, offer } = data;
+      console.log("accept offer", from, offer);
+    },
+    []
+  );
 
-    getMediaStream();
+  // useEffect(() => {
+  // const getMediaStream = async () => {
+  //   try {
 
-    return () => {
-      if (mediaStream) {
-        mediaStream
-          .getTracks()
-          .forEach((track: { stop: () => unknown }) => track.stop());
-      }
-    };
-  }, []);
+  //     const stream = await navigator.mediaDevices.getUserMedia({
+  //       video: true,
+  //     });
+  //     setMediaStream(stream);
+  //   } catch (error) {
+  //     console.error("Error accessing media devices: ", error);
+  //   }
+  // };
+
+  // getMediaStream();
+
+  // return () => {
+  //   if (mediaStream) {
+  //     mediaStream
+  //       .getTracks()
+  //       .forEach((track: { stop: () => unknown }) => track.stop());
+  //   }
+  // };
+  // }, []);
 
   useEffect(() => {
     socket?.on("user:joined", handleUserJoined);
+    socket?.on("user:accept", handleAcceptOffer);
+    console.log("remoteSocketId useEffect", remoteSocketId);
     return () => {
       socket?.off("user:joined", handleUserJoined);
+      socket?.off("user:accept", handleAcceptOffer);
     };
-  }, [socket, handleUserJoined]);
+  }, [socket, handleUserJoined, handleAcceptOffer, remoteSocketId]);
 
   return (
     <>
@@ -133,7 +161,7 @@ const Room: React.FC = () => {
                       }}
                       autoPlay
                       playsInline
-                      className="h-[110%] w-[100%] scale-150 "
+                      className="h-[105%] w-[110%] scale-x-[-1] scale-150"
                     />
                   )}
                 </div>

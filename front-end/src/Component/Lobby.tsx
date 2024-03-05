@@ -16,14 +16,14 @@ const Lobby: React.FC = () => {
     setEmail(event.target.value);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback((event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     socket?.emit("room:join", {
       email,
       room,
     });
-   
-  };
+  }, [email, room,socket]);
+  
 
   const handleJoinRoom = useCallback(
     (data: { email: string; room: string | number }) => {
@@ -44,7 +44,7 @@ const Lobby: React.FC = () => {
     return () =>{
       socket?.off("room:join",handleJoinRoom)
     }
-  }, [socket, handleJoinRoom]);
+  }, [socket, handleJoinRoom,handleSubmit]);
 
   return (
     <div className="flex items-center justify-center h-screen">
