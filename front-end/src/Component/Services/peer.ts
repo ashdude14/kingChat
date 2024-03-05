@@ -25,6 +25,7 @@ class Peer {
           const offer = await this.peer.createOffer();
           // Handle the offer here
           await this.peer.setLocalDescription(new RTCSessionDescription(offer));
+          return offer; // Return the offer generated
         } catch (error) {
           console.error("Error creating offer:", error);
         }
@@ -32,6 +33,7 @@ class Peer {
         console.error("Peer connection not initialized.");
       }
     }
+    
   }
   
   export default new Peer();

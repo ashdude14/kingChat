@@ -35,6 +35,7 @@ const Room: React.FC = () => {
 
   const joinHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    //alert("I am Ash!")
     setShow(!show);
     setJoiners((prevJoiners) => prevJoiners + 1);
     getMediaStream();
