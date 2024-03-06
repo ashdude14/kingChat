@@ -131,6 +131,10 @@ The remote peer(callee) will also create an instance of the RTC peer connection.
 
 The connection between the caller and callee can only take place after they have both exchanged ice candidates. We mentioned before that ice candidates are potential network addresses that peers can use to communicate with one another. The caller would send its ice candidate to the callee through the signaling server and listen for the ice candidate of the callee, when the caller receives the ice candidate of the callee, it will add it to the RTCPeerConnection. The callee would also repeat this process.
 
+## Test the WebRTC connection and flow in Chrome
+
+[chrome-internal](chrome://webrtc-internals/)
+
 ## Socket.IO concepts
 
 Socket.IO is a library that facilitates bi-directional low-latency communication between the client and the server. The communication between the client and server is events-based. The client and the server emit and listen to events. To use Socket.IO, the client and the server library must be installed on the client and server. Socket.IO is used for applications that depend on real-time data like the stock market, weather, and chat applications. Socket.IO is implemented in most major languages, Python, Java, and C++. In this article, we used JavaScript implementation for both the client and server side.

@@ -24,6 +24,7 @@ const Room: React.FC = () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
+        audio:true,
       });
       setMediaStream(stream);
     } catch (error) {
@@ -75,7 +76,7 @@ const Room: React.FC = () => {
       offer: RTCSessionDescriptionInit;
     }) => {
       const { from, offer } = data;
-      getMediaStream();
+      //getMediaStream();
       setChkrem(true);
       // setShow(!show)
       console.log("accept offer", from, offer);
@@ -179,7 +180,7 @@ const handleAnswer= useCallback(()=>{
                       ref={async (videoRef) => {
                         if (videoRef) {
                           videoRef.srcObject = mediaStream;
-                          
+
                           await videoRef.play();
                         }
                       }}
