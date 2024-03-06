@@ -24,7 +24,7 @@ const Room: React.FC = () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
-        audio:true,
+        audio: true,
       });
       setMediaStream(stream);
     } catch (error) {
@@ -82,7 +82,7 @@ const Room: React.FC = () => {
       console.log("accept offer", from, offer);
       const ans = await peer.getAnswer(offer);
       console.log("answer", ans);
-      socket?.emit("user:anser", { to: from,ans });
+      socket?.emit("user:anser", { to: from, ans });
     },
     [socket]
   );
@@ -110,28 +110,30 @@ const Room: React.FC = () => {
   //   }
   // };
   // }, []);
-const handleAnswer= useCallback(()=>{
-  (data: {
-    from: string | number;
-    ans : RTCSessionDescriptionInit;
-  }) =>{
-    const {from,ans}=data;
-    peer.setLocalDesc(ans)
-    console.log("answer done callback , from : ",from)
-  }
-
-},[])
+  const handleAnswer = useCallback(() => {
+    (data: { from: string | number; ans: RTCSessionDescriptionInit }) => {
+      const { from, ans } = data;
+      peer.setLocalDesc(ans);
+      console.log("answer done callback , from : ", from);
+    };
+  }, []);
   useEffect(() => {
     socket?.on("user:joined", handleUserJoined);
     socket?.on("user:accept", handleAcceptOffer);
-    socket?.on("user:answer",handleAnswer)
+    socket?.on("user:answer", handleAnswer);
     console.log("remoteSocketId useEffect", remoteSocketId);
     return () => {
       socket?.off("user:joined", handleUserJoined);
       socket?.off("user:accept", handleAcceptOffer);
-      socket?.off("user:answer",handleAnswer)
+      socket?.off("user:answer", handleAnswer);
     };
-  }, [socket, handleUserJoined, handleAcceptOffer, remoteSocketId,handleAnswer]);
+  }, [
+    socket,
+    handleUserJoined,
+    handleAcceptOffer,
+    remoteSocketId,
+    handleAnswer,
+  ]);
 
   return (
     <>
