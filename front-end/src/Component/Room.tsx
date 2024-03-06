@@ -70,13 +70,20 @@ const Room: React.FC = () => {
   );
 
   const handleAcceptOffer = useCallback(
-    (data: { from: string | number; offer: string }) => {
+    async (data: {
+      from: string | number;
+      offer: RTCSessionDescriptionInit;
+    }) => {
       const { from, offer } = data;
+      getMediaStream();
       setChkrem(true);
       // setShow(!show)
       console.log("accept offer", from, offer);
+      const ans = await peer.getAnswer(offer);
+      console.log("answer", ans);
+      socket?.emit("user:anser", { to: from,ans });
     },
-    []
+    [socket]
   );
 
   // useEffect(() => {
@@ -102,16 +109,28 @@ const Room: React.FC = () => {
   //   }
   // };
   // }, []);
+const handleAnswer= useCallback(()=>{
+  (data: {
+    from: string | number;
+    ans : RTCSessionDescriptionInit;
+  }) =>{
+    const {from,ans}=data;
+    peer.setLocalDesc(ans)
+    console.log("answer done callback , from : ",from)
+  }
 
+},[])
   useEffect(() => {
     socket?.on("user:joined", handleUserJoined);
     socket?.on("user:accept", handleAcceptOffer);
+    socket?.on("user:answer",handleAnswer)
     console.log("remoteSocketId useEffect", remoteSocketId);
     return () => {
       socket?.off("user:joined", handleUserJoined);
       socket?.off("user:accept", handleAcceptOffer);
+      socket?.off("user:answer",handleAnswer)
     };
-  }, [socket, handleUserJoined, handleAcceptOffer, remoteSocketId]);
+  }, [socket, handleUserJoined, handleAcceptOffer, remoteSocketId,handleAnswer]);
 
   return (
     <>
@@ -157,10 +176,11 @@ const Room: React.FC = () => {
                 <div className="w-full h-full absolute mb-[20%]">
                   {mediaStream && (
                     <video
-                      ref={(videoRef) => {
+                      ref={async (videoRef) => {
                         if (videoRef) {
                           videoRef.srcObject = mediaStream;
-                          videoRef.play();
+                          
+                          await videoRef.play();
                         }
                       }}
                       autoPlay

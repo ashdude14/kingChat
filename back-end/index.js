@@ -20,6 +20,9 @@ io.on("connection", (socket) => {
              //console.log("to-ash",to)
         io.to(to).emit("user:accept",{from:socket.id,offer})
       })
+      socket.on("user:anser",({ to,ans })=>{
+        io.to(to).emit("user:anser",{from:socket.id,ans})
+      })
     })
 })
 
