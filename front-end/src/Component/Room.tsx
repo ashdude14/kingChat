@@ -16,7 +16,8 @@ const Room: React.FC = () => {
   // const { room } = useRoomContext(); //
   const { participants, setParticipants } = useRoomContext();
   const socket = useSocket();
-  const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
+  const [mediaStream, setMediaStream] = useState<MediaStream>();
+  const [remoteMediaStream, setRemoteMediaStream] = useState<MediaStream>();
   // const roomId=room;
   // console.log("I am from room.tsx roomid ,socket  ", room, socket?.id);
 
@@ -45,11 +46,13 @@ const Room: React.FC = () => {
     socket?.emit("user:offer", { to: remoteSocketId, offer });
   };
 
-  //console.log("im chrm", chkrem);
+  console.log("im chrm", chkrem);
   const handleExit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShow(!show);
     setSc(false);
+   // socket?.off();
+    setMediaStream(undefined)
   };
 
   const screenhandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -79,6 +82,7 @@ const Room: React.FC = () => {
       //getMediaStream();
       setChkrem(true);
       // setShow(!show)
+      setRemoteSocketId(from);
       console.log("accept offer", from, offer);
       const ans = await peer.getAnswer(offer);
       console.log("answer", ans);
@@ -115,7 +119,19 @@ const Room: React.FC = () => {
       const { from, ans } = data;
       peer.setLocalDesc(ans);
       console.log("answer done callback , from : ", from);
+
+      // eslint-disable-next-line no-unsafe-optional-chaining
+      mediaStream?.getTracks().forEach((track) => {
+        peer.peer?.addTrack(track, mediaStream);
+      });
     };
+  }, [mediaStream]);
+
+  useEffect(() => {
+    peer.peer?.addEventListener("track", async (ev) => {
+      setRemoteMediaStream(ev.streams[0]);
+      //setRemoteMediaStream(ev.streams);
+    });
   }, []);
   useEffect(() => {
     socket?.on("user:joined", handleUserJoined);
@@ -182,7 +198,25 @@ const Room: React.FC = () => {
                       ref={async (videoRef) => {
                         if (videoRef) {
                           videoRef.srcObject = mediaStream;
-
+                          console.log("remoteMediaStream",remoteMediaStream)
+                          console.log("MediaStream",mediaStream)
+                          await videoRef.play();
+                        }
+                      }}
+                      autoPlay
+                      playsInline
+                      className="h-[105%] w-[110%] scale-x-[-1] scale-150"
+                    />
+                  )}
+                </div>
+                <div className="w-full h-full absolute mb-[20%]">
+                 
+                  {remoteMediaStream && (
+                    <video
+                      ref={async (videoRef) => {
+                        if (videoRef) {
+                          videoRef.srcObject = remoteMediaStream;
+                           
                           await videoRef.play();
                         }
                       }}
@@ -199,7 +233,7 @@ const Room: React.FC = () => {
 
         <button
           className={`absolute bottom-0 mx-[40%] w-[20%] rounded-lg bg-[#845695] mb-[4%] text-sm sm:text-xl p-[0.5%] ${
-            (!show && remoteSocketId) || chkrem ? "block" : "hidden"
+            (!show   && remoteSocketId) ? "block" : "hidden"
           } `}
           onClick={joinHandler}
         >
